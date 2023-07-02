@@ -10,7 +10,8 @@ module CdpWebManyoTask
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
-
+    #la definition de la langue par defaut sur français 
+    config.i18n.default_locale = :fr
 
     config.generators do |g|
         g.assets false

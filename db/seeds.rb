@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+unless Task.exists?
+    50.times do |i|
+      Task.create(title: "Tâche #{i+1}", content: "Description de la tâche #{i+1}")
+    end
+end

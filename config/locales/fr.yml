@@ -1,0 +1,50 @@
+fr:
+  activerecord:
+    models:
+      task: Tâche
+      create: Créer
+      update: Mise-à-jour    
+    attributes:
+      task:
+        title: Titre
+        content: Contenu
+        created_at: Créer à
+  helpers:
+    submit:
+      create: Créer 
+      update: Mise-à-jour       
+  errors:
+    format: "%{message}%{attribute}"
+    messages:
+      blank:  Veuillez entrer le   
+  global_navigation:
+    tasks_index: Liste des tâches
+    new_task:  Enregistrer une tâche
+  common:
+    new: Enregistrer une tâche
+    show: Montrer
+    edit: Modifier
+    destroy: Supprimer
+    back: Retour
+    confirm_destroy: Êtes vous sûr？
+  tasks:
+    index:
+      title: Page de la liste des tâches
+    new:
+      title: Page d'enregistrement des tâches
+    edit:
+      title: Page de modification de tâche
+    show:
+      title: Page des détails de la tâche
+    create:
+      created: Créée la Tâche
+    update:
+      updated: Mettre à jour la Tâche
+    destroy:
+      destroyed: Supprimé la Tâche   
+  
+  flash:
+    create: Tâche créer avec succès !
+    update: Tâche modifier avec succès !
+    delete: Tâche supprimer avec succès !
+
