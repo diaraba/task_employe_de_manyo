@@ -26,9 +26,9 @@ RSpec.describe "Tasks", type: :system do
       # Si le résultat de expect est "true", le résultat du test est affiché comme un succès, et si le résultat de expect est "false", le résultat du test est affiché comme un échec.
       task_list = all('body tr')
         
-      expect(task_list[1]).to have_text(task1.title)
+      expect(task_list[1]).to have_text(task3.title)
       expect(task_list[2]).to have_text(task2.title)
-      expect(task_list[3]).to have_text(task3.title)
+      expect(task_list[3]).to have_content(task1.title)
 
     end
 
@@ -42,7 +42,7 @@ RSpec.describe "Tasks", type: :system do
     context 'Si une nouvelle tâche est créée' do
       it 'La nouvelle tâche s\'affiche en haut' do
         task_list = all('body tr')
-        expect(task_list[1]).to have_text(task1.title)
+        expect(task_list[1]).to have_text(task3.title)
       end
     end
   end
