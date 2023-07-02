@@ -12,7 +12,9 @@ module CdpWebManyoTask
     config.load_defaults 6.0
     #la definition de la langue par defaut sur français 
     config.i18n.default_locale = :fr
-
+    #definition du fuseau horaire locale
+    config.time_zone = 'Africa/Bamako'
+    
     config.generators do |g|
         g.assets false
         g.helper false
