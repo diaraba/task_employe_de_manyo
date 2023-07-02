@@ -12,4 +12,9 @@ FactoryBot.define do
       title { 'Envoyer un e-mail' }
       content { 'Envoyer un e-mail de vente à un client.' }
     end
+
+    factory :third_task, class: Task do
+      title { 'Ruby is fun' }
+      content { 'Checkout how work ordered task.' }
+    end
 end
