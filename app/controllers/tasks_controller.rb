@@ -3,7 +3,25 @@ class TasksController < ApplicationController
     before_action :set_task, only: %i[ show edit update destroy ]
   
     def index
-      @tasks = Task.order(created_at: :desc).page(params[:page]).per(10)  
+      if params[:sort_deadline_on]
+        tasks = Task.sort_deadline_on.sort_created_at
+      elsif params[:sort_priority]
+        tasks = Task.sort_priority.sort_created_at
+      else
+        tasks = Task.sort_created_at
+      end
+      
+      if params[:search].present?
+        if params[:search][:status].present? && params[:search][:title].present?
+          tasks = tasks.search_status(params[:search][:status]).search_title(params[:search][:title])
+        elsif params[:search][:status].present?
+          tasks = tasks.search_status(params[:search][:status])
+        elsif params[:search][:title].present?
+          tasks = tasks.search_title(params[:search][:title])
+        end
+      end
+  
+      @tasks = tasks.page(params[:page]).per(10)
     end
   
     def new
@@ -48,7 +66,7 @@ class TasksController < ApplicationController
       end
   
       def task_params
-        params.require(:task).permit(:title, :content, :user_id)
+        params.require(:task).permit(:title, :content, :created_at, :deadline_on, :priority, :status)
       end
   
       def correct_user
