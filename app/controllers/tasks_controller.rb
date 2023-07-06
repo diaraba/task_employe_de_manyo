@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-    #before_action :correct_user, only: [:show, :edit, :update]
+    before_action :correct_user, only: [:show, :edit, :update]
     before_action :set_task, only: %i[ show edit update destroy ]
   
     def index
@@ -71,6 +71,6 @@ class TasksController < ApplicationController
   
       def correct_user
         @task=Task.find(params[:id])
-        redirect_to tasks_path unless current_owmner?(@task)
+        redirect_to tasks_path, notice:  "Vous n'êtes pas autorisé à accéder" unless current_owmner?(@task)
       end 
 end  

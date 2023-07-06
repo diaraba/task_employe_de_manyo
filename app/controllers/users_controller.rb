@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    #before_action :already_logged_in, only: %i(new create)
+    before_action :already_logged_in, only: %i(new create)
     skip_before_action :login_required, only: %i(new create)
     before_action :set_user, only: %i(show edit update)
     before_action :is_current_user, only: %i(show edit update)

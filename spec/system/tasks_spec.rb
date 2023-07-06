@@ -158,7 +158,8 @@ RSpec.describe "Tasks", type: :system do
         @task=FactoryBot.create(:second_task, title: 'Enquête concurrentielle', content: 'Enquêter sur les services d\'autres entreprises.', user: user)
 
         # Passer à l'écran de la liste des tâches
-        visit task_path(@task)
+        click_link "Liste des utilisateurs"
+        click_on 'Montrer', match: :first
         # Attendez (confirmez / attendez) que la chaîne de caractères "création de document" soit incluse dans la page visitée (dans ce cas, l'écran de la liste des tâches).
         expect(page).to have_content 'Enquête concurrentielle'
         # Si le résultat de expect est "true", le résultat du test est affiché comme un succès, et si le résultat de expect est "false", le résultat du test est affiché comme un échec.

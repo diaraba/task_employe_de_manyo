@@ -15,7 +15,7 @@ class Admin::UsersController < ApplicationController
     def create
         @user = User.new(user_params)
         if @user.save
-        redirect_to admin_users_path , notice: "Votre compte est créé avec succès"
+        redirect_to admin_users_path , notice: "Utilisateur enregistré"
         else
         render :new
         end
@@ -38,7 +38,7 @@ class Admin::UsersController < ApplicationController
        
        
         if @user.update(user_params)
-            redirect_to admin_users_path, notice: "J'ai mis à jour mon compte"
+            redirect_to admin_users_path, notice: "	Utilisateur mis à jour"
         else
             render :edit
         end
@@ -46,8 +46,11 @@ class Admin::UsersController < ApplicationController
 
     def destroy
         @user = User.find(params[:id])
-        @user.destroy
-        redirect_to admin_users_path, notice: "L'utilisateur a été supprimé avec succès."
+        if @user.destroy
+         redirect_to admin_users_path, notice: "Utilisateur supprimé"
+        else
+         redirect_to admin_users_path, notice: "Impossible de supprimer car il n'y a que 1 administrateurs"
+        end  
     end
       
 

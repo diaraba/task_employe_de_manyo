@@ -78,23 +78,28 @@ RSpec.describe 'fonctions de gestion des utilisateurs', type: :system do
         fill_in "user_password", with: "password"
         fill_in "user_password_confirmation", with: "password"
         click_button "Créer"
-        expect(page).to have_content("Votre compte est créé avec succès")
+        expect(page).to have_content("Utilisateur enregistré")
         expect(page).to have_content("Liste des utilisateurs")
       end
       it "Accès à l'écran des détails de l'utilisateur." do
-        visit admin_user_path(second_user)
+        click_link "Liste des utilisateurs"
+        click_on 'Montrer', match: :first
         expect(page).to have_content("Page de détails de l'utilisateur")
       end
       it "Vous pouvez modifier les utilisateurs autres que vous-même à partir de l'écran de modification des utilisateurs." do
-        visit edit_admin_user_path(user)
+        click_link "Liste des utilisateurs"
+        click_on 'Modifier', match: :first
+        sleep 2
         expect(page).to have_content("Edit User")
       end
       it "Les utilisateurs peuvent être supprimés." do
-        visit admin_users_path
-        find("a[data-destroy_user='#{user.id}']").click
-        page.driver.browser.switch_to.alert.accept
-        expect(page).to have_content "L'utilisateur a été supprimé avec succès."
-        expect(page).to have_content "Liste des utilisateurs"
+         # visit admin_users_path
+         click_link "Liste des utilisateurs"
+         accept_alert do
+           click_on 'Supprimer', match: :first
+         end 
+         expect(page).to have_content "Utilisateur supprimé"
+         expect(page).to have_content "Liste des utilisateurs"
       end
     end
     context "Lorsqu'un utilisateur général accède à l'écran de la liste des utilisateurs" do

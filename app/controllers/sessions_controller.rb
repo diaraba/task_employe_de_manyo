@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
             flash[:notice]='Vous êtes connecté'
             redirect_to tasks_path
         else
-            flash.now[:notice]='L\'adresse e-mail ou le mot de passe est incorrect'
+            flash.now[:notice]='Adresse e-mail ou mot de passe incorrect'
             render :new
         end    
     end    
