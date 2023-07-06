@@ -17,3 +17,6 @@ unless Task.exists?
   Task.create(title: 'nineth_task', content: 'sortir' , deadline_on: '2025-02-16', priority: 'Faible', status: 'Terminé')
   Task.create(title: 'tenth_task', content: 'regarder' , deadline_on: '2025-02-18', priority: 'Moyenne', status: 'Non_démarré')  
 end
+unless User.exists?
+  User.create!(name: 'Ashborn', email: 'testadmin@gmail.com' , password: 'password', admin: true)  
+end
