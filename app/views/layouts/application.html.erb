@@ -10,12 +10,48 @@
   </head>
 
   <body>
+
+   <p id="notice"><%= notice %></p>
+    
+    <% if !logged_in? %>
+      <p id="notice"><%= alert %></p>
+    <%end%>  
+    <% if logged_in? %>
+
+      <li id="users-index">
+        <%= link_to "Liste des utilisateurs", admin_users_path%>
+      </li>
+
+      <li id="my-acccount">
+            <%= link_to "Compte", user_path(current_user.id) %>
+      </li>
+
+      <li>
+        <%= link_to "Enregistrer un utilisateur", new_admin_user_path %>
+      </li>
+
+      
       <li id="tasks-index">
-            <%= link_to  t('global_navigation.tasks_index'), tasks_path%>
+            <%= link_to t('global_navigation.tasks_index'), tasks_path%>
       </li>
-      <li id="new-tasks">
-            <%= link_to t('global_navigation.new_task'), new_task_path%>
+
+      <li id="new-task">
+            <%= link_to t('global_navigation.new_task'), new_task_path %>
       </li>
+
+      <li id="sign-out">
+            <%= link_to "Déconnecté", session_path(current_user.id), method: :delete %>
+      </li>
+    </div>
+    <% else %>
+     <li id="sign-in">
+            <%= link_to "Connexion", new_session_path%>
+      </li>
+
+      <li id="sign-up">
+            <%= link_to "Inscription", new_user_path %>
+      </li>
+    <% end %>
     <%= yield %>
   </body>
 </html>

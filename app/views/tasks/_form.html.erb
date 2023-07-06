@@ -35,6 +35,8 @@
       <%= form.label :status %>
       <%= form.select :status, options_for_select(['Non_démarré', 'Démarré', 'Terminé']), include_blank: true %>
   </div>
+  
+  <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div class="actions">
     <%= form.submit %>
