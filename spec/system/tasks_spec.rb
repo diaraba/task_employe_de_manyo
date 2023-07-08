@@ -69,7 +69,7 @@ RSpec.describe "Tasks", type: :system do
       context 'Si vous cliquez sur le lien "Expire"' do
         it "Une liste de tâches triées par ordre croissant de date d'échéance s'affiche." do
           # Utilisez la méthode all pour vérifier l'ordre de plusieurs données de test.
-          click_link 'expiration date'
+          click_link 'Date d\'expiration'
           visit current_url
           
           task_list = all('body tr')
@@ -82,7 +82,7 @@ RSpec.describe "Tasks", type: :system do
       end
       context "Si vous cliquez sur le lien Priorité." do
         it "Une liste de tâches triées par priorité s'affiche." do
-          click_link 'priority'
+          click_link 'Priorité'
           visit current_url
           task_list = all('body tr')
 
@@ -130,6 +130,28 @@ RSpec.describe "Tasks", type: :system do
           expect(task_list.first).not_to have_content "third_task"
         end
       end
+
+
+      context "Lors d'une recherche par étiquette." do
+        let!(:label_1) { FactoryBot.create(:label, name: "label1", user: user) }
+        let!(:label_2) { FactoryBot.create(:label, name: "label2", user: user) }
+        
+        before do
+          task1.labels << label_1
+          task2.labels << label_2
+        end
+
+        it "Toutes les tâches portant cette étiquette sont affichées." do
+          visit current_path
+          select label_1.name, from: "search[label_id]"
+          click_button "Rechercher"
+          task_list = all('body tbody tr')
+          expect(task_list.count).to eq 1
+          expect(task_list.first).to have_content "first_task"
+          expect(task_list.first).not_to have_content "second_task"
+          expect(task_list.first).not_to have_content "third_task"
+        end
+      end
     end
 
 
@@ -159,7 +181,7 @@ RSpec.describe "Tasks", type: :system do
 
         # Passer à l'écran de la liste des tâches
         click_link "Liste des utilisateurs"
-        click_on 'Montrer', match: :first
+        click_on 'Afficher', match: :first
         # Attendez (confirmez / attendez) que la chaîne de caractères "création de document" soit incluse dans la page visitée (dans ce cas, l'écran de la liste des tâches).
         expect(page).to have_content 'Enquête concurrentielle'
         # Si le résultat de expect est "true", le résultat du test est affiché comme un succès, et si le résultat de expect est "false", le résultat du test est affiché comme un échec.

@@ -12,16 +12,13 @@ class TasksController < ApplicationController
       end
       
       if params[:search].present?
-        if params[:search][:status].present? && params[:search][:title].present?
-          tasks = tasks.search_status(params[:search][:status]).search_title(params[:search][:title])
-        elsif params[:search][:status].present?
-          tasks = tasks.search_status(params[:search][:status])
-        elsif params[:search][:title].present?
-          tasks = tasks.search_title(params[:search][:title])
-        end
+        tasks = tasks.search_status(params[:search][:status]) if params[:search][:status].present?
+        tasks = tasks.search_title(params[:search][:title]) if params[:search][:title].present?
+        tasks = tasks.search_label_id(params[:search][:label_id]) if params[:search][:label_id].present?
       end
   
       @tasks = tasks.page(params[:page]).per(10)
+      @labels = current_user.labels.pluck(:name, :id)
     end
   
     def new
@@ -31,7 +28,8 @@ class TasksController < ApplicationController
     def create
       @task = Task.new(task_params)
       if @task.save
-        flash[:notice]=t('flash.create')
+        @task.label_ids = params[:task][:label_ids]
+        flash[:notice]=t('flash.tasks.create')
         redirect_to tasks_path
       else
         render :new
@@ -46,7 +44,8 @@ class TasksController < ApplicationController
   
     def update
       if @task.update(task_params)
-        flash[:notice]=t('flash.update')
+        @task.label_ids = params[:task][:label_ids]
+        flash[:notice]=t('flash.tasks.update')
         redirect_to tasks_path
       else
         render :edit
@@ -55,7 +54,7 @@ class TasksController < ApplicationController
   
     def destroy
       @task.destroy
-      flash[:notice]=t('flash.delete')
+      flash[:notice]=t('flash.tasks.destroy')
       redirect_to tasks_path
     end
   
@@ -66,7 +65,7 @@ class TasksController < ApplicationController
       end
   
       def task_params
-        params.require(:task).permit(:title, :content, :created_at, :deadline_on, :priority, :status, :user_id)
+        params.require(:task).permit(:title, :content, :created_at, :deadline_on, :priority, :status, :user_id,:label_ids)
       end
   
       def correct_user

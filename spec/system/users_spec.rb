@@ -9,7 +9,7 @@ RSpec.describe 'fonctions de gestion des utilisateurs', type: :system do
         fill_in "user_email", with: "ashborn@gmail.com"
         fill_in "user_password", with: "123456"
         fill_in "user_password_confirmation", with: "123456"
-        click_button "Créer"
+        click_button "Enregistrer"
         expect(page).to have_content("Page de la liste des tâches")
       end
     end
@@ -77,13 +77,13 @@ RSpec.describe 'fonctions de gestion des utilisateurs', type: :system do
         fill_in "user_email", with: "did@gmail.com"
         fill_in "user_password", with: "password"
         fill_in "user_password_confirmation", with: "password"
-        click_button "Créer"
+        click_button "Enregistrer"
         expect(page).to have_content("Utilisateur enregistré")
         expect(page).to have_content("Liste des utilisateurs")
       end
       it "Accès à l'écran des détails de l'utilisateur." do
         click_link "Liste des utilisateurs"
-        click_on 'Montrer', match: :first
+        click_on 'Afficher', match: :first
         expect(page).to have_content("Page de détails de l'utilisateur")
       end
       it "Vous pouvez modifier les utilisateurs autres que vous-même à partir de l'écran de modification des utilisateurs." do

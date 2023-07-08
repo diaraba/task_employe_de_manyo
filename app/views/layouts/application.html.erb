@@ -5,53 +5,67 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <% if flash.present? %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <p id="notice"><%= notice %></p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <%end%>
 
-   <p id="notice"><%= notice %></p>
     
-    <% if !logged_in? %>
-      <p id="notice"><%= alert %></p>
-    <%end%>  
-    <% if logged_in? %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Application de tâche</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse  navShowState " id="navbarNavAltMarkup">
+        <div class="navbar-nav ">
+            
+          
+            <% if logged_in? %>
+                
+                  <%= link_to "Liste des utilisateurs", admin_users_path, class:"nav-item nav-link", id:"users-index"  %>
+                  
+                  
+                  <%= link_to "Compte", user_path(current_user.id),class:"nav-item nav-link",id:"my-acccount" %>
+                  
 
-      <li id="users-index">
-        <%= link_to "Liste des utilisateurs", admin_users_path%>
-      </li>
+                  <%= link_to "Enregistrer un utilisateur", new_admin_user_path,class:"nav-item nav-link" %>
 
-      <li id="my-acccount">
-            <%= link_to "Compte", user_path(current_user.id) %>
-      </li>
 
-      <li>
-        <%= link_to "Enregistrer un utilisateur", new_admin_user_path %>
-      </li>
+                  <%= link_to t('global_navigation.tasks_index'), tasks_path,class:"nav-item nav-link",id:"tasks-index" %>
+                 
 
-      
-      <li id="tasks-index">
-            <%= link_to t('global_navigation.tasks_index'), tasks_path%>
-      </li>
+                  <%= link_to t('global_navigation.new_task'), new_task_path, class:"nav-item nav-link", id!:"new-task" %>
+                  <%= link_to "Liste  d'étiquettes", labels_path, class:"nav-item nav-link", id:"labelss-index" %>
+                  
 
-      <li id="new-task">
-            <%= link_to t('global_navigation.new_task'), new_task_path %>
-      </li>
 
-      <li id="sign-out">
-            <%= link_to "Déconnecté", session_path(current_user.id), method: :delete %>
-      </li>
-    </div>
-    <% else %>
-     <li id="sign-in">
-            <%= link_to "Connexion", new_session_path%>
-      </li>
+                  <%= link_to "Enregistrer l'étiquette", new_label_path, class:"nav-item nav-link", id:"new-labels" %>
+                  
 
-      <li id="sign-up">
-            <%= link_to "Inscription", new_user_path %>
-      </li>
-    <% end %>
-    <%= yield %>
+                  <%= link_to "Déconnecté", session_path(current_user.id),class:"nav-item nav-link", id:"sign-out", method: :delete %>
+                  
+              <% else %>
+                  <%= link_to "Connexion", new_session_path, class:"nav-item nav-link", id:"sign-in"%>
+
+                  <%= link_to "Inscription", new_user_path, class:"nav-item nav-link", id:"sign-up" %>
+              <% end %>
+
+   
+        </div>
+      </div>
+    </nav>  
+
+    <div class="container  mt-5">
+      <%= yield %>
+    </div>  
   </body>
 </html>

@@ -1,0 +1,33 @@
+<!--<p id="notice"><%= notice %></p>-->
+
+<h1>Page de liste d'étiquettes</h1>
+
+
+
+ <div class="table-responsive">
+  <table class="table  table-condensed">
+    <thead class="">
+      <tr>
+        <th scope="col" style="white-space: nowrap;">Nom</th>
+        <th  scope="col" style="white-space: nowrap;">Nombre de tâches</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @labels.each do |label| %>
+        <% if label.user_id == current_user.id %>
+            <tr>
+              <td><%= label.name %></td>
+              <td><%= label.tasks.count %></td>
+              
+              <td id="edit-task"><%= link_to "Modifier", edit_label_path(label), class: "btn btn-warning btn-sm" %></td>
+              <td id="destroy-task"><%= link_to "Supprimer", label, class: "btn btn-danger btn-sm", method: :delete, data:  { confirm:  t('common.labels.confirm_destroy'), } %></td>
+            </tr>
+          <%end%>  
+      <% end %>
+    </tbody>
+  </table>
+</div>  
+<br>
+
