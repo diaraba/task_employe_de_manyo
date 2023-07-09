@@ -1,34 +1,55 @@
 <h1>Edit User</h1>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this task from being saved:</h2>
 
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <%= form_with(model: @user , url: admin_user_path(@user), local: true) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <%= form_with(model: @user , url: admin_user_path(@user), local: true) do |form| %>
     
-    <%= f.label :email %>
-    <%= f.email_field :email %>
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this task from being saved:</h2>
 
-    <%= f.label :password %> 
-    <%= f.password_field :password %> 
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-    <%= f.label :password_confirmation %> 
-    <%= f.password_field :password_confirmation %> 
+      
+    <div class="field">
+      <%= form.label :name ,class:" d-flex justify-content-start"%>
+      <%= form.text_field :name , class: "form-control"%>
+    </div>
 
-    <%= f.label :admin %>
-    <%= f.check_box :admin %>
+    <div class="field">
+      <%= form.label :email ,class:" d-flex justify-content-start"%>
+      <%= form.email_field :tiemailtle , class: "form-control"%>
+    </div>
 
-    <ul>
-    <%= f.submit%>
-    </ul>
-  <% end %>
+    <div class="field">
+      <%= form.label :password ,class:" d-flex justify-content-start"%>
+      <%= form.password_field :password , class: "form-control"%>
+    </div>
 
-<%= link_to t('common.back'), admin_users_path %>
+    <div class="field">
+      <%= form.label :password_confirmation ,class:" d-flex justify-content-start"%>
+      <%= form.password_field :password_confirmation , class: "form-control"%>
+    </div>
+
+  
+
+    <div class="form-group col-md-3 field ">
+      <%= form.label :admin%>
+      <%= form.check_box :admin  , class: "form-control col-md-2" %>
+    </div>
+
+   
+    <div class="actions form-row d-flex justify-content-end  mb-5">
+        <%= form.submit t("helpers.submit.#{controller_name}.#{action_name}", model: User.model_name.human), id: "search_task", class: "btn btn-success"  %>
+    </div>  
+<% end %>
+
+      
+ <div class="actions form-row d-flex justify-content-end  mt-5">
+    <%= link_to t('common.labels.back'), admin_users_path %>
+</div>  
+

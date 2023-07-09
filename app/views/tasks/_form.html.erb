@@ -12,33 +12,42 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.label :title ,class:" d-flex justify-content-start"%>
+    <%= form.text_field :title , class: "form-control"%>
   </div>
 
   <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
+    <%= form.label :content ,class:" d-flex justify-content-start"%>
+    <%= form.text_area :content, class: "form-control" %>
   </div>
   
  <div class="field">
-    <%= form.label :deadline_on %>
-    <%= form.date_field :deadline_on %>
+    <%= form.label :deadline_on,class:" d-flex justify-content-start" %>
+    <%= form.date_field :deadline_on, class: "form-control" %>
   </div>
 
   <div class="field">
-      <%= form.label :priority %>
-      <%= form.select :priority, options_for_select(['Faible', 'Moyenne', 'Elevee']), include_blank: true %>
+      <%= form.label :priority,class:" d-flex justify-content-start" %>
+      <%= form.select :priority, options_for_select(['Faible', 'Moyenne', 'Elevee']), include_blank: true, class: "form-control" %>
   </div>
 
   <div class="field">
-      <%= form.label :status %>
-      <%= form.select :status, options_for_select(['Non_démarré', 'Démarré', 'Terminé']), include_blank: true %>
+      <%= form.label :status ,class:" d-flex justify-content-start"%>
+      <%= form.select :status, options_for_select(['Non_démarré', 'Démarré', 'Terminé']), include_blank: true, class: "form-control" %>
   </div>
   
+  <div class="field">
+      <div class="field mb-1 mt-3">
+          Label
+      </div>
+      <% current_user.labels.each do |label| %>
+        <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label[:id], class: "form-control" %>
+        <%= label.name %>
+      <% end %>
+  </div>
   <%= form.hidden_field :user_id, value: current_user.id %>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <div class="actions form-row d-flex justify-content-end  mb-5">
+      <%= form.submit t("helpers.submit.#{controller_name}.#{action_name}", model: Task.model_name.human), id: "search_task", class: "btn btn-success"  %>
+  </div>  
 <% end %>

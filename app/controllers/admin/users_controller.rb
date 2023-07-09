@@ -22,11 +22,22 @@ class Admin::UsersController < ApplicationController
     end
 
     def show
-        @user = User.find(params[:id])
+        tasks =@user.tasks
+
+        if params[:sort_deadline_on]
+            tasks = tasks.sort_deadline_on.sort_created_at
+        elsif params[:sort_priority]
+            tasks = tasks.sort_priority.sort_created_at
+        else
+            tasks = tasks.sort_created_at
+        end
+        @tasks = tasks.page(params[:page]).per(10)
     end
 
     def edit
         @user = User.find(params[:id])
+
+  
     end
 
 

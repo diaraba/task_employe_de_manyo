@@ -1,32 +1,58 @@
 fr:
   activerecord:
     models:
+      user: Utilisateur
       task: Tâche
-      create: Créer
-      update: Mise-à-jour    
+      label: Étiquette
+
     attributes:
       task:
         title: Titre
         content: Contenu
-        created_at: Créer à
+        created_at: Créé le
+      label:
+        name: Nom
+        created_at: Créé le
+
   helpers:
     submit:
-      create: Créer 
-      update: Mise-à-jour       
+      users:
+        new: Enregistrer
+        edit: Mettre à jour l'utilisateur
+
+      tasks:
+        new: Créer une tâche
+        edit: Mettre à jour la tâche
+      labels:
+        new: Créer une étiquette
+        edit: Mettre à jour l'étiquette
+
   errors:
     format: "%{message}%{attribute}"
     messages:
-      blank:  Veuillez entrer le   
+      blank: Veuillez entrer le %{attribute}"
+
   global_navigation:
     tasks_index: Liste des tâches
-    new_task:  Enregistrer une tâche
+    new_task: Enregistrer une tâche
+
   common:
-    new: Enregistrer une tâche
-    show: Montrer
-    edit: Modifier
-    destroy: Supprimer
-    back: Retour
-    confirm_destroy: Êtes vous sûr？
+    tasks:
+      new: Enregistrer une tâche
+      show: Afficher
+      edit: Modifier
+      destroy: Supprimer
+      back: Retour
+      confirm_destroy: Êtes-vous sûr ?
+
+    labels:
+      new: Enregistrer une étiquette
+      show: Afficher
+      edit: Modifier
+      destroy: Supprimer
+      back: Retour
+      confirm_destroy: Êtes-vous sûr ?
+
   tasks:
     index:
       title: Page de la liste des tâches
@@ -37,14 +63,34 @@ fr:
     show:
       title: Page des détails de la tâche
     create:
-      created: Créée la Tâche
+      created: Tâche créée
     update:
-      updated: Mettre à jour la Tâche
+      updated: Tâche mise à jour
     destroy:
-      destroyed: Supprimé la Tâche   
-  
-  flash:
-    create: Tâche créer avec succès !
-    update: Tâche modifier avec succès !
-    delete: Tâche supprimer avec succès !
+      destroyed: Tâche supprimée
 
+  labels:
+    index:
+      title: Page de la liste des étiquettes
+    new:
+      title: Page d'enregistrement des étiquettes
+    edit:
+      title: Page de modification d'étiquette
+    show:
+      title: Page des détails d'étiquette
+    create:
+      created: Étiquette créée
+    update:
+      updated: Étiquette mise à jour
+    destroy:
+      destroyed: Étiquette supprimée
+
+  flash:
+    tasks:
+      create: Tâche créée avec succès !
+      update: Tâche mise à jour avec succès !
+      destroy: Tâche supprimée avec succès !
+    labels:
+      create: Étiquette créée avec succès !
+      update: Étiquette mise à jour avec succès !
+      destroy: Étiquette supprimée avec succès !
